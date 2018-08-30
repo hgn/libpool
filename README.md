@@ -4,32 +4,32 @@
 ## List
 
 ```
-lp_list_create()
-lp_list_destroy()
-lp_list_add()
+lt_list_create()
+lt_list_destroy()
+lt_list_add()
 ```
 
 
 ## Hash Table
 
 ```
-lp_hashtable_create()
-lp_hashtable_destroy()
-lp_hashtable_add()
+lt_hashtable_create()
+lt_hashtable_destroy()
+lt_hashtable_add()
 ```
 
 ## RB Tree
 
 ```
-lp_rbtree_create()
-lp_rbtree_destroy()
-lp_rbtree_add()
+lt_rbtree_create()
+lt_rbtree_destroy()
+lt_rbtree_add()
 ```
 
 ## Buffer
 
 ```
-lp_buf_create()
-lp_buf_destroy()
-lp_buf_add()
+lt_buf_create()
+lt_buf_destroy()
+lt_buf_add()
 ```
