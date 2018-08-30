@@ -1,4 +1,12 @@
-# libpool
+# libtrifles
+
+A utility libray for C with focus on
+
+- simplicity
+- low overhead
+- ...
+
+Licence: MIT
 
 
 ## List
