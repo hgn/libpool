@@ -6,6 +6,14 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
+#ifdef __GNUC__
+#  define LIB_PUBLIC __attribute__ ((visibility ("default")))
+#  define LIB_LOCAL  __attribute__ ((visibility ("hidden")))
+#else
+#  warning "not compiling with GCC, please add your compiler"
+#  define LIB_PUBLIC
+#  define LIB_LOCAL
+#endif
 
 struct lt_queue_entry {
 	struct l_queue_entry *next;
@@ -25,9 +33,9 @@ struct lt_queue;
  *
  * This function cannot fail.
  */
-struct lt_queue *lt_queue_create(unsigned int flags);
+LIB_PUBLIC struct lt_queue *lt_queue_create(unsigned int flags);
 
-int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void *data));
+LIB_PUBLIC int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void *data));
 
 
 

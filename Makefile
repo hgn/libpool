@@ -26,6 +26,7 @@ CFLAGS += -ftrapv
 CFLAGS += -std=c99
 CFLAGS += -Wno-unused-function
 CFLAGS += -pedantic
+CFLAGS += -fvisibility=hidden
 
 CFLAGS += -ggdb3 -Werror
 

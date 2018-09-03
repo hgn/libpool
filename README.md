@@ -8,6 +8,16 @@ A utility libray for C with focus on
 
 Licence: MIT
 
+## Basics
+
+### Return Values
+
+Return values are harmonized: for pointer (object) return the object itself is
+returned (success) or NULL is returned in the case of an error. All remaining
+functions return 0 in the case of success or an negative return value to indicate
+the particular error like (ENOMEM if allocation failed or EINVAL for wrong
+parameter usage, etc)
+
 
 ## Queue
 
