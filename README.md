@@ -9,7 +9,7 @@ A utility libray for C with focus on
 Licence: MIT
 
 
-## List
+## Queue
 
 ```
 struct lt_list;
@@ -40,7 +40,15 @@ lt_rbtree_destroy()
 lt_rbtree_add()
 ```
 
-## Buffer
+## Managed Strings - String Buffer
+
+C native strings are not managed strings of the style natively provided in more
+modern languages such as Go, Swift or D. String handling is more erroneous and
+unsafe compared to other programming languages and the cause of many security
+relevant bugs.
+
+libtrifles buffer management try to simplify string manipulation by providing
+higher level functionality and abstract away memory management.
 
 ```
 struct lt_buf;
@@ -49,3 +57,11 @@ lt_buf_create()
 lt_buf_destroy()
 lt_buf_add()
 ```
+
+# Development
+
+## Coding Style
+
+Linux Kernel Coding Guidelines apply
+
+## Merge Requests
