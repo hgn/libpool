@@ -16,7 +16,7 @@
 #endif
 
 struct lt_queue_entry {
-	struct l_queue_entry *next;
+	struct lt_queue_entry *next;
 	void *data;
 };
 
@@ -36,6 +36,11 @@ struct lt_queue;
 LIB_PUBLIC struct lt_queue *lt_queue_create(unsigned int flags);
 
 LIB_PUBLIC int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void *data));
+
+
+LIB_PUBLIC int lt_queue_add(struct lt_queue *queue, void *data);
+
+LIB_PUBLIC int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *data));
 
 
 

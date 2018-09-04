@@ -29,8 +29,8 @@
 
 
 struct lt_queue {
-	struct l_queue_entry *head;
-	struct l_queue_entry *tail;
+	struct lt_queue_entry *head;
+	struct lt_queue_entry *tail;
 	uint64_t entries;
 };
 
@@ -59,11 +59,70 @@ struct lt_queue *lt_queue_create(unsigned int flags)
 
 int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void *data))
 {
-	if (!queue || !destroy_fn)
+	if (!queue)
 		return -EINVAL;
 
-	//l_queue_clear(queue, destroy);
+	// lt_queue_flush() cannot fail, see prev queue check
+	lt_queue_flush(queue, destroy_fn);
 	free(queue);
+
+	return 0;
+}
+
+
+int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *data))
+{
+	struct lt_queue_entry *entry, *tmp;
+
+	if (!queue)
+		return -EINVAL;
+
+	entry = queue->head;
+	while (entry) {
+		if (destroy_fn)
+			destroy_fn(entry->data);
+		tmp = entry;
+		entry = entry->next;
+		free(tmp);
+	}
+
+	queue->entries = 0;
+	queue->head = NULL;
+	queue->tail = NULL;
+
+	return 0;
+}
+
+
+int lt_queue_add(struct lt_queue *queue, void *data)
+{
+	struct lt_queue_entry *entry;
+
+	if (!queue || !data)
+		return -EINVAL;
+
+	entry = malloc(sizeof(*entry));
+	if (!entry)
+		return -ENOBUFS;
+	entry->next = NULL;
+	entry->data = data;
+
+	if (!queue->head) {
+		// first element in queue
+		queue->head = entry;
+	}
+
+	if (queue->tail) {
+		// if at least one entry in queue,
+		// reorder and previous tail will
+		// become prev-prev now
+		queue->tail->next = entry;
+	}
+
+	// add entry at the end/tail of queue
+	queue->tail = entry;
+
+	queue->entries++;
 
 	return 0;
 }
