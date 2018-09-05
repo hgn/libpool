@@ -58,6 +58,9 @@ struct lt_queue *lt_queue_create(unsigned int flags)
 
 uint64_t lt_queue_entries(struct lt_queue *queue)
 {
+	if (!queue)
+		return 0;
+
 	return queue->entries;
 }
 
