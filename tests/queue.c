@@ -104,6 +104,44 @@ void flush(void)
 	assert(ret == 0);
 }
 
+void entries(void)
+{
+	int ret;
+	void *data;
+	uint64_t no_entries;
+	unsigned int flags = 0;
+	struct lt_queue *queue;
+
+	queue = lt_queue_create(flags);
+	assert(queue != NULL);
+
+	no_entries = lt_queue_entries(queue);
+	assert(no_entries == 0);
+
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+	assert(ret == 0);
+
+	no_entries = lt_queue_entries(queue);
+	assert(no_entries == 1);
+
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+	assert(ret == 0);
+
+	no_entries = lt_queue_entries(queue);
+	assert(no_entries == 2);
+
+	ret = lt_queue_flush(queue, queue_destroy_fn);
+	assert(ret == 0);
+
+	no_entries = lt_queue_entries(queue);
+	assert(no_entries == 0);
+
+	ret = lt_queue_destroy(queue, queue_destroy_fn);
+	assert(ret == 0);
+}
+
 int main(void)
 {
 
@@ -111,6 +149,7 @@ int main(void)
 	destroy();
 	add();
 	flush();
+	entries();
 
 	return EXIT_SUCCESS;
 

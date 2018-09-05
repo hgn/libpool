@@ -56,6 +56,11 @@ struct lt_queue *lt_queue_create(unsigned int flags)
 	return queue;
 }
 
+uint64_t lt_queue_entries(struct lt_queue *queue)
+{
+	return queue->entries;
+}
+
 
 int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void *data))
 {

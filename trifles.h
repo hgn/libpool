@@ -42,6 +42,8 @@ LIB_PUBLIC int lt_queue_add(struct lt_queue *queue, void *data);
 
 LIB_PUBLIC int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *data));
 
+LIB_PUBLIC uint64_t lt_queue_entries(struct lt_queue *queue);
+
 
 
 #endif /* LIBTRIFLES_H */
