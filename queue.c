@@ -28,13 +28,6 @@
 #endif
 
 
-struct lt_queue {
-	struct lt_queue_entry *head;
-	struct lt_queue_entry *tail;
-	uint64_t entries;
-};
-
-
 struct lt_queue *lt_queue_create(unsigned int flags)
 {
 	struct lt_queue *queue;
@@ -133,4 +126,24 @@ int lt_queue_add(struct lt_queue *queue, void *data)
 	queue->entries++;
 
 	return 0;
+}
+
+
+void *lt_queue_head(struct lt_queue *q)
+{
+	if (!q || !q->head)
+		return NULL;
+
+	// data must be !NULL, see add() - no check required
+	return q->head->data;
+}
+
+
+void *lt_queue_tail(struct lt_queue *q)
+{
+	if (!q || !q->tail)
+		return NULL;
+
+	// data must be !NULL, see add() - no check required
+	return q->tail->data;
 }

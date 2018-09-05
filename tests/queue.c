@@ -142,6 +142,46 @@ void entries(void)
 	assert(ret == 0);
 }
 
+
+void loops(void)
+{
+	int ret;
+	void *data;
+	unsigned int flags = 0;
+	struct lt_queue_entry *entry;
+	struct lt_queue *queue;
+
+	queue = lt_queue_create(flags);
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+	data = malloc(1);
+	ret = lt_queue_add(queue, data);
+
+	// while forward loop
+	entry = queue->head;
+	while (entry) {
+		void *data_tmp;
+		data_tmp = entry->data;
+		(void) data_tmp;
+		entry = entry->next;
+	}
+
+	// for forward loop
+	for (entry = queue->head; entry; entry = entry->next) {
+		void *data_tmp;
+		data_tmp = entry->data;
+		(void) data_tmp;
+		entry = entry->next;
+	}
+
+	ret = lt_queue_destroy(queue, queue_destroy_fn);
+	assert(ret == 0);
+}
+
 int main(void)
 {
 
@@ -150,6 +190,7 @@ int main(void)
 	add();
 	flush();
 	entries();
+	loops();
 
 	return EXIT_SUCCESS;
 

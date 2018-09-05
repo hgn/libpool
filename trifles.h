@@ -20,8 +20,12 @@ struct lt_queue_entry {
 	void *data;
 };
 
-/* forward declaration, opaque object for queue users */
-struct lt_queue;
+struct lt_queue {
+	struct lt_queue_entry *head;
+	struct lt_queue_entry *tail;
+	uint64_t entries;
+};
+
 
 /**
  * ev_entries - return number of active event entries
@@ -43,6 +47,9 @@ LIB_PUBLIC int lt_queue_add(struct lt_queue *queue, void *data);
 LIB_PUBLIC int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *data));
 
 LIB_PUBLIC uint64_t lt_queue_entries(struct lt_queue *queue);
+
+LIB_PUBLIC void *lt_queue_head(struct lt_queue *queue);
+LIB_PUBLIC void *lt_queue_tail(struct lt_queue *queue);
 
 
 
