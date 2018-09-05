@@ -21,6 +21,13 @@ parameter usage, etc)
 
 ## Queue
 
+The queue provides no iteratior in the form of
+`queue_iterate(queue, (void)(*callback)(void *data))` because this will result
+in massive function call overhead for larger datasets. Rather the loop should
+be open coded with a typical (and also not complex) loop. Sidenote: hashtables
+amd rbtress on the other hand requires more complex iterators, so a callback
+based interator is provided.
+
 ```
 struct lt_list;
 
