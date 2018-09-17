@@ -48,8 +48,10 @@ LIB_PUBLIC int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *d
 
 LIB_PUBLIC uint64_t lt_queue_entries(struct lt_queue *queue);
 
-LIB_PUBLIC void *lt_queue_head(struct lt_queue *queue);
-LIB_PUBLIC void *lt_queue_tail(struct lt_queue *queue);
+LIB_PUBLIC void *lt_queue_peek_head(struct lt_queue *queue);
+LIB_PUBLIC void *lt_queue_peek_tail(struct lt_queue *queue);
+
+LIB_PUBLIC void *lt_queue_pop_head(struct lt_queue *queue);
 
 
 

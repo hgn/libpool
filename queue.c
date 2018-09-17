@@ -129,7 +129,7 @@ int lt_queue_add(struct lt_queue *queue, void *data)
 }
 
 
-void *lt_queue_head(struct lt_queue *q)
+void *lt_queue_peek_head(struct lt_queue *q)
 {
 	if (!q || !q->head)
 		return NULL;
@@ -139,11 +139,36 @@ void *lt_queue_head(struct lt_queue *q)
 }
 
 
-void *lt_queue_tail(struct lt_queue *q)
+void *lt_queue_peek_tail(struct lt_queue *q)
 {
 	if (!q || !q->tail)
 		return NULL;
 
 	// data must be !NULL, see add() - no check required
 	return q->tail->data;
+}
+
+
+void *lt_queue_pop_head(struct lt_queue *queue)
+{
+	void *data;
+	struct lt_queue_entry *entry;
+
+	if (queue == NULL || queue->head == NULL)
+		return NULL;
+
+	entry = queue->head;
+	if (entry->next == NULL) {
+		queue->head = NULL;
+		queue->tail = NULL;
+	} else {
+		queue->head = queue->head->next;
+	}
+
+	data = entry->data;
+	queue->entries--;
+
+	free(entry);
+
+	return data;
 }
