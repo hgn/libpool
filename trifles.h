@@ -43,6 +43,7 @@ LIB_PUBLIC int lt_queue_destroy(struct lt_queue *queue, void (*destroy_fn)(void 
 
 
 LIB_PUBLIC int lt_queue_add(struct lt_queue *queue, void *data);
+#define lt_queue_push_tail lt_queue_add
 
 LIB_PUBLIC int lt_queue_flush(struct lt_queue *queue, void (*destroy_fn)(void *data));
 
